@@ -77,7 +77,7 @@ Public Class Form1
 
         SetForegroundWindow(process.MainWindowHandle)
         'Threading.Thread.Sleep(500)
-        SendKeys.Send("1146")
+        SendKeys.Send("")
         SendKeys.Send(Environment.NewLine)
 
 
