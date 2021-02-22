@@ -5,6 +5,7 @@ Module loader
 
 
     Sub main()
+
         log($"{Application.ProductName} v{Application.ProductVersion}")
 
         Dim runLogin As Boolean = False
@@ -26,7 +27,7 @@ Module loader
                     Application.Run(frmLogin)
                 Else
                     log("Calling Runner")
-                    runner.Run()
+                    Runner.Run()
                 End If
             Else
                 log("Showing Settings form")

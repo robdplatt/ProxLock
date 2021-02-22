@@ -27,11 +27,13 @@ Partial Class frmLogin
         Me.timerKeepOnTop = New System.Windows.Forms.Timer(Me.components)
         Me.timerFindProcess = New System.Windows.Forms.Timer(Me.components)
         Me.timerRefreshBTDevices = New System.Windows.Forms.Timer(Me.components)
+        Me.timerTestInRange = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'btnLogin
         '
         Me.btnLogin.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnLogin.Enabled = False
         Me.btnLogin.Location = New System.Drawing.Point(0, 0)
         Me.btnLogin.Margin = New System.Windows.Forms.Padding(1)
         Me.btnLogin.Name = "btnLogin"
@@ -54,6 +56,11 @@ Partial Class frmLogin
         Me.timerRefreshBTDevices.Enabled = True
         Me.timerRefreshBTDevices.Interval = 1000
         '
+        'timerTestInRange
+        '
+        Me.timerTestInRange.Enabled = True
+        Me.timerTestInRange.Interval = 1000
+        '
         'frmLogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -72,4 +79,5 @@ Partial Class frmLogin
     Friend WithEvents timerKeepOnTop As Timer
     Friend WithEvents timerFindProcess As Timer
     Friend WithEvents timerRefreshBTDevices As Timer
+    Friend WithEvents timerTestInRange As Timer
 End Class

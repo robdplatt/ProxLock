@@ -1,4 +1,5 @@
-﻿Imports InTheHand.Net.Sockets
+﻿Imports InTheHand.Net.Bluetooth
+Imports InTheHand.Net.Sockets
 
 Module Bluetooth
 
@@ -14,16 +15,16 @@ Module Bluetooth
         Return list
     End Function
 
-    Friend Async Function GetBTDevicesInRangeAsync() As Task(Of List(Of BluetoothDeviceInfo))
-        Dim list As New List(Of BluetoothDeviceInfo)
+    Friend Async Function TestDeviceInRangeAsync(device As BluetoothDeviceInfo) As Task(Of Boolean)
+        Dim deviceIsInRange As Boolean = False
         Await Task.Run(Sub()
-                           Using client As New BluetoothClient()
-                               For Each device As BluetoothDeviceInfo In client.DiscoverDevicesInRange
-                                   list.Add(device)
-                               Next
-                           End Using
+                           Try
+                               Dim records As ServiceRecord() = device.GetServiceRecords(New Guid("bec9d149-e711-4899-8fae-bfe6d25db0d6"))
+                               deviceIsInRange = True
+                           Catch ex As Net.Sockets.SocketException
+                           End Try
                        End Sub)
-        Return list
+        Return deviceIsInRange
     End Function
 
 End Module
