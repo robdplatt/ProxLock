@@ -10,7 +10,16 @@ Public Class frmLogin
         End Get
         Set(value As Boolean)
             _deviceIsInRange = value
-            btnLogin.Enabled = value
+
+            If value Then
+                If settings.AutoUnlock Then btnLogin.Enabled = True
+            Else
+                btnLogin.Enabled = False
+
+                If settings.AutoUnlock Then
+                    LockWorkStation()
+                End If
+            End If
         End Set
     End Property
 
@@ -26,7 +35,10 @@ Public Class frmLogin
 
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
         If process Is Nothing Then Exit Sub
+
+        'TODO test connection on login?
         timerKeepOnTop.Stop()
+
 
         SetForegroundWindow(process.MainWindowHandle)
 

@@ -7,4 +7,9 @@ Module NativeMethods
     <DllImport("User32.dll")>
     Friend Function SetForegroundWindow(ByVal point As IntPtr) As Integer
     End Function
+
+    <DllImport("User32.dll")>
+    Friend Sub LockWorkStation()
+    End Sub
+
 End Module

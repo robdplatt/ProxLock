@@ -6,6 +6,8 @@ Module loader
 
     Sub main()
 
+
+
         log($"{Application.ProductName} v{Application.ProductVersion}")
 
         Dim runLogin As Boolean = False
@@ -23,6 +25,7 @@ Module loader
 
             If runLogin Then
                 If identity.IsSystem Then
+                    'TODO don't allow duplicates
                     log("Showing Login Form")
                     Application.Run(frmLogin)
                 Else
