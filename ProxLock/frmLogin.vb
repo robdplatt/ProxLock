@@ -17,18 +17,24 @@ Public Class frmLogin
     Private process As Process
     Private devices As New List(Of BluetoothDeviceInfo)
 
+    Private settings As Settings
+
+    Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Location = New Point(CInt((Screen.PrimaryScreen.Bounds.Width / 2) - (Width / 2)), CInt(Screen.PrimaryScreen.Bounds.Height / 3) * 2)
+        settings = New Settings()
+    End Sub
+
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
         If process Is Nothing Then Exit Sub
         timerKeepOnTop.Stop()
 
         SetForegroundWindow(process.MainWindowHandle)
 
-        SendKeys.Send("")
-        SendKeys.Send(Environment.NewLine)
+        SendKeys.Send(settings.Password)
+        If settings.PasswordType = Settings.PasswordTypes.Password Then SendKeys.Send(Environment.NewLine)
 
         timerKeepOnTop.Start()
     End Sub
-
 
     Private Sub timerKeepOnTop_Tick(sender As Object, e As EventArgs) Handles timerKeepOnTop.Tick
         TopMost = True
@@ -49,10 +55,6 @@ Public Class frmLogin
                        End Sub)
     End Sub
 
-    Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Location = New Point(CInt((Screen.PrimaryScreen.Bounds.Width / 2) - (Width / 2)), CInt(Screen.PrimaryScreen.Bounds.Height / 3) * 2)
-    End Sub
-
     Private Async Sub timerRefreshBTDevices_Tick(sender As Object, e As EventArgs) Handles timerRefreshBTDevices.Tick
         timerRefreshBTDevices.Stop()
         timerRefreshBTDevices.Interval = 30000
@@ -69,7 +71,6 @@ Public Class frmLogin
         Catch ex As Exception
         End Try
 
-
         timerRefreshBTDevices.Start()
     End Sub
 
@@ -80,16 +81,19 @@ Public Class frmLogin
         Try
             If devices.Count = 0 Then Exit Try
 
-            Dim device = devices.FirstOrDefault(Function(x) x.DeviceAddress.ToString = "C0BDC86C989E")
-            If device Is Nothing Then Exit Try
+            For Each deviceId In settings.RegisteredDevices
+                Dim device = devices.FirstOrDefault(Function(x) x.DeviceAddress.ToString = deviceId)
+                If device IsNot Nothing Then
+                    Debug.WriteLine("Checking to see if device is in range...")
+                    deviceIsInRange = Await TestDeviceInRangeAsync(device)
+                    Debug.WriteLine($"Device in range: {deviceIsInRange.ToString}")
+                End If
 
-            Debug.WriteLine("Checking to see if device is in range...")
-            deviceIsInRange = Await TestDeviceInRangeAsync(device)
-            Debug.WriteLine($"Device in range: {deviceIsInRange.ToString}")
+                If deviceIsInRange Then Exit For
+            Next
 
         Catch ex As Exception
         End Try
-
 
         timerTestInRange.Start()
     End Sub
