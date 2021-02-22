@@ -2,7 +2,7 @@
 Option Explicit On
 
 'This constant indicates whether the Application Framework is in use.
-#Const APPLICATION_FRAMEWORK = True
+#Const APPLICATION_FRAMEWORK = False
 
 #If APPLICATION_FRAMEWORK Then
 
@@ -37,7 +37,7 @@ Namespace My
 
         ' For more about using WinForms without the Application Framework 
         ' see: https://aka.ms/visualbasic-appframework-net5
-        Protected Function OnInitialize(commandLineArgs As ReadOnlyCollection(Of String)) As Boolean
+        Protected Overrides Function OnInitialize(commandLineArgs As ReadOnlyCollection(Of String)) As Boolean
             Dim eventArgs = New ApplyHighDpiModeEventArgs(
                 If(
                     _highDpiMode Is Nothing,
@@ -48,7 +48,7 @@ Namespace My
 
             Windows.Forms.Application.SetHighDpiMode(eventArgs.HighDpiMode)
 
-            'Return MyBase.OnInitialize(commandLineArgs)
+            Return MyBase.OnInitialize(commandLineArgs)
         End Function
     End Class
 

@@ -26,6 +26,7 @@ Partial Class frmLogin
         Me.btnLogin = New System.Windows.Forms.Button()
         Me.timerKeepOnTop = New System.Windows.Forms.Timer(Me.components)
         Me.timerFindProcess = New System.Windows.Forms.Timer(Me.components)
+        Me.timerRefreshBTDevices = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'btnLogin
@@ -43,10 +44,15 @@ Partial Class frmLogin
         '
         Me.timerKeepOnTop.Enabled = True
         '
-        'timerFindWindowHandle
+        'timerFindProcess
         '
         Me.timerFindProcess.Enabled = True
         Me.timerFindProcess.Interval = 1000
+        '
+        'timerRefreshBTDevices
+        '
+        Me.timerRefreshBTDevices.Enabled = True
+        Me.timerRefreshBTDevices.Interval = 1000
         '
         'frmLogin
         '
@@ -65,4 +71,5 @@ Partial Class frmLogin
     Friend WithEvents btnLogin As Button
     Friend WithEvents timerKeepOnTop As Timer
     Friend WithEvents timerFindProcess As Timer
+    Friend WithEvents timerRefreshBTDevices As Timer
 End Class
