@@ -2,7 +2,7 @@
 
 ProxLock is a proof-of-concept app that will optionally AutoLock, AutoUnlock, and allow single click/tap to log in using a Bluetooth device's proximity to detect presence.
 
-While functional, the published code is incomplete. The copmpleted code and a first release will be posted soon.
+While functional, the published code is incomplete. The completed code and a first release will be posted soon.
 
 
 ## Acknowledgements
